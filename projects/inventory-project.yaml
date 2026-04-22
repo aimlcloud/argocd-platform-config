@@ -1,0 +1,31 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: inventory
+  namespace: argocd
+spec:
+  description: Inventory Platform Project
+
+  sourceRepos:
+    - https://github.com/aimlcloud/inventory-platform.git
+    - https://github.com/aimlcloud/*
+
+  destinations:
+    - namespace: inventory
+      server: https://kubernetes.default.svc
+
+  clusterResourceWhitelist:
+    - group: "*"
+      kind: "*"
+
+  namespaceResourceWhitelist:
+    - group: "*"
+      kind: "*"
+
+  roles:
+    - name: inventory-admin
+      policies:
+        - p, proj:inventory:inventory-admin, applications, *, inventory/*, allow
+        - p, proj:inventory:inventory-admin, repositories, *, *, allow
+      groups:
+        - inventory-admins
