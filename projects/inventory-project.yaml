@@ -12,6 +12,8 @@ spec:
   destinations:
     - namespace: inventory
       server: https://kubernetes.default.svc
+    - namespace: argcod
+      server: https://kubernetes.default.svc
 
   clusterResourceWhitelist:
     - group: "*"
